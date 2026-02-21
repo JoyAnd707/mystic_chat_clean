@@ -1,0 +1,102 @@
+name: mystic_chat
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ✅ Firebase
+  firebase_core: ^2.25.0
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.15.0
+  firebase_storage: ^11.6.5
+  firebase_database: 10.5.7
+  firebase_messaging: 14.7.10
+  flutter_local_notifications: ^17.2.2
+
+  # ✅ Media
+  image_picker: ^1.1.2
+  device_preview: ^1.2.0
+  shared_preferences: ^2.2.3
+  audioplayers: ^6.5.1
+  cupertino_icons: ^1.0.8
+
+  just_audio: ^0.10.5
+  audio_session: ^0.2.2
+  video_player: ^2.9.2
+
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # ✅ Voice
+  record: ^6.2.0
+  path_provider: ^2.1.2
+  permission_handler: ^11.3.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  scrollable_positioned_list: ^0.3.8
+  flutter_launcher_icons: ^0.13.1
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/ui/MysticMeowsengerIcon.png
+  remove_alpha_ios: true
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/backgrounds/
+    - assets/ui/
+    - assets/bubble_templates/
+    - assets/decors/
+    - assets/fx/
+    - assets/bgm/
+    - assets/fonts/
+    - assets/avatars/
+    - assets/reactions/
+    - assets/ui/VideoResumedIcon.png
+    - assets/ui/VideoPausedIcon.png
+    - assets/ui/VideoProgressionBar.png
+    - assets/ui/ProgressionDotVideo.png
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
+        - asset: assets/fonts/NotoSans-SemiBold.ttf
+          weight: 600
+
+    - family: NanumGothic
+      fonts:
+        - asset: assets/fonts/NanumGothic.ttf
+
+    - family: NanumMyeongjo
+      fonts:
+        - asset: assets/fonts/NanumMyeongjo.ttf
+
+    - family: BMHanna
+      fonts:
+        - asset: assets/fonts/bm-hanna-pro.regular.ttf
+
+    - family: Heebo
+      fonts:
+        - asset: assets/fonts/Heebo-VariableFont_wght.ttf
+
+    - family: FrankRuhlLibre
+      fonts:
+        - asset: assets/fonts/FrankRuhlLibre-VariableFont_wght.ttf
+
+    - family: Abraham
+      fonts:
+        - asset: assets/fonts/Abraham-Regular.ttf

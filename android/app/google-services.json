@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "560708750613",
+    "project_id": "mystic-chat-70707",
+    "storage_bucket": "mystic-chat-70707.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560708750613:android:ef434a5114539df48eed1c",
+        "android_client_info": {
+          "package_name": "com.joy.mysticchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMkawoX2IEWsaynQV5BVxYOuU7OmO0J5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
