@@ -24,7 +24,8 @@ jobs:
 
       - name: Flutter pub get
         run: flutter pub get
-
+- name: Generate iOS config files
+  run: flutter build ios --config-only
       - name: Clean Pods hard
         run: |
           flutter clean
