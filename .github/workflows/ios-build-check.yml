@@ -1,0 +1,81 @@
+name: iOS Build Check (Flutter)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Show Xcode version
+        run: |
+          xcodebuild -version
+          sw_vers
+
+      - name: Flutter pub get
+        run: flutter pub get
+- name: Generate iOS config files
+  run: flutter build ios --config-only
+      - name: Clean Pods hard
+        run: |
+          flutter clean
+          rm -rf ios/Pods ios/Podfile.lock
+          rm -rf ~/Library/Developer/Xcode/DerivedData/* || true
+          cd ios
+          pod deintegrate || true
+          cd ..
+
+      - name: Install CocoaPods
+        run: |
+          sudo gem install cocoapods -N
+          pod --version
+
+      - name: Pod install
+        run: |
+          cd ios
+          pod install --repo-update
+          cd ..
+
+      - name: Hunt iOS 10.0 references (Runner/Pods/xcconfig)
+        run: |
+          echo "---- Search any 10.0 ----"
+          grep -RIn -- "10.0" ios | head -n 200 || true
+
+          echo "---- Search IPHONEOS_DEPLOYMENT_TARGET=10 ----"
+          grep -RIn -- "IPHONEOS_DEPLOYMENT_TARGET.*10" ios | head -n 200 || true
+
+          echo "---- Search arm64-apple-ios10.0 ----"
+          grep -RIn -- "arm64-apple-ios10.0" ios | head -n 200 || true
+
+      - name: Broad scan for -G / GCC_WARN flags
+        run: |
+          echo "---- Search GCC_WARN_INHIBIT_ALL_WARNINGS anywhere ----"
+          grep -RIn -- "GCC_WARN_INHIBIT_ALL_WARNINGS" ios | head -n 200 || true
+
+          echo "---- Search literal -G anywhere ----"
+          grep -RIn -- "-G" ios | head -n 200 || true
+
+      - name: Build iOS (verbose) + capture log
+        run: |
+          set -o pipefail
+          flutter build ios --release --no-codesign -v 2>&1 | tee ios_build.log
+
+      - name: Extract -G culprit from log
+        if: always()
+        run: |
+          echo "---- First occurrences of -G / GCC_WARN ----"
+          grep -n -- "-G" ios_build.log | head -n 120 || true
+          grep -n -- "GCC_WARN_INHIBIT_ALL_WARNINGS" ios_build.log | head -n 120 || true
+
+          echo "---- Show area around the error ----"
+          grep -n -- "unsupported option" ios_build.log | head -n 40 || true
